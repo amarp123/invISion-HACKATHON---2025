@@ -181,68 +181,57 @@
         </div>
     </section>
 
-   
+<section id="register" class="section register-section">
+    <div class="container">
+        <h2 class="section-title reveal">Register for invISion - 2025</h2>
+        <p class="section-description reveal">Join us for an exciting 12-hour hackathon experience. Register your team now!</p>
 
-    <section id="register" class="section register-section">
-        <div class="container">
-            <h2 class="section-title reveal">Register for invISion - 2025</h2>
-            <p class="section-description reveal">Fill the form below to register for invISion 2025. All submissions are emailed to the organizer.</p>
-
-            <form id="regForm" class="registration-form" action="https://formspree.io/f/mvgwndvp" method="POST">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="lead_name">Lead Name *</label>
-                        <input type="text" id="lead_name" name="lead_name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lead_email">Lead Email *</label>
-                        <input type="email" id="lead_email" name="lead_email" placeholder="Enter your email address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lead_phone">Phone Number *</label>
-                        <input type="tel" id="lead_phone" name="lead_phone" placeholder="Enter your phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="roll">Roll / College ID *</label>
-                        <input type="text" id="roll" name="roll" placeholder="Enter your roll number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="team_name">Team Name *</label>
-                        <input type="text" id="team_name" name="team_name" placeholder="Enter your team name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="domain">Domain *</label>
-                        <select id="domain" name="domain" required>
-                            <option value="">Select domain</option>
-                            <option value="Web Development">Web Development</option>
-                            <option value="Mobile App Development">Mobile App Development</option>
-                            <option value="AI/ML">Artificial Intelligence & Machine Learning</option>
-                            <option value="IoT">Internet of Things</option>
-                            <option value="Blockchain">Blockchain Technology</option>
-                            <option value="UI/UX Design">UI/UX Design</option>
-                            <option value="Data Science">Data Science</option>
-                            <option value="Cybersecurity">Cybersecurity</option>
-                            <option value="AR/VR">Augmented Reality / Virtual Reality</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div id="team-members-container" class="team-members-container">
-                    </div>
-
-                <div class="form-group team-member-actions">
-                    <button type="button" id="add-member-btn" class="btn-outline">Add Team Member (0/3)</button>
-                    <input type="hidden" id="team_members_json" name="team_members_details">
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">Submit Registration</button>
-                    <div id="formStatus" class="form-status"></div>
-                </div>
-            </form>
+        <!-- Registration Info Card -->
+        <div class="registration-card reveal">
+            <div class="reg-icon">🎯</div>
+            <h3>Registration Fee</h3>
+            <div class="fee-amount">₹349 <span>per team</span></div>
+            <p class="reg-description">Complete payment details and upload proof in the registration form</p>
+            
+            <a href="https://docs.google.com/forms/d/1m0aatvGmukER8ccFi5VWYTAaW4W0VF7KQKzTP55pCDQ/edit?pli=1" target="_blank" class="btn-register-form">
+                Register Your Team →
+            </a>
+            
+            <div class="reg-notes">
+                <p>✓ Team size: 1-4 members</p>
+                <p>✓ Payment proof required</p>
+                <p>✓ Deadline: Oct 28, 2025</p>
+            </div>
         </div>
-    </section>
+
+        <!-- Additional Info -->
+        <div class="registration-steps reveal">
+            <h3>Registration Steps</h3>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Fill the Form</h4>
+                    <p>Click the button above to open the registration form</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Make Payment</h4>
+                    <p>Transfer ₹500 using the payment details provided in the form</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Upload Proof</h4>
+                    <p>Upload your payment screenshot/receipt in the form</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Get Confirmed</h4>
+                    <p>Receive confirmation email after verification</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section id="contact" class="section">
         <div class="container">
@@ -260,7 +249,7 @@
                         <h4>Call Us</h4>
                         <p>Bharath p - +91 9538530969</p>
                         <p>Amar Pujari - +91 8050760620</p>
-                        <p>Swaroop P - +91 9538530969</p>
+                        <p>Swaroop P - +91 8861647145</p>
                         <p>Dhanush Urs M K- +91 6360666591</p>
                         <span>Speak directly with our team</span>
                     </div>
@@ -523,222 +512,9 @@
             });
         });
 
-        // --- Team Member Registration Logic ---
-
-        const teamMembersContainer = document.getElementById('team-members-container');
-        const addMemberBtn = document.getElementById('add-member-btn');
-        const teamMembersDetailsInput = document.getElementById('team_members_json');
-        let memberCount = 0;
-        const MAX_MEMBERS = 3; 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-
-        function updateMemberButton() {
-            addMemberBtn.textContent = `Add Team Member (${memberCount}/${MAX_MEMBERS})`;
-            if (memberCount >= MAX_MEMBERS) {
-                addMemberBtn.disabled = true;
-                addMemberBtn.style.opacity = 0.5;
-                addMemberBtn.style.cursor = 'not-allowed';
-            } else {
-                addMemberBtn.disabled = false;
-                addMemberBtn.style.opacity = 1;
-                addMemberBtn.style.cursor = 'pointer';
-            }
-        }
-
-        function addTeamMember() {
-            if (memberCount >= MAX_MEMBERS) return;
-
-            memberCount++;
-            const memberIndex = memberCount;
-            const memberHtml = document.createElement('div');
-            memberHtml.className = `member-card member-${memberIndex}`;
-            memberHtml.innerHTML = `
-                <div class="member-header">
-                    <h4>Team Member ${memberIndex}</h4>
-                    <button type="button" class="btn-remove-member" data-index="${memberIndex}">&times;</button>
-                </div>
-                <div class="form-grid member-grid">
-                    <div class="form-group">
-                        <label for="member_name_${memberIndex}">Name *</label>
-                        <input type="text" id="member_name_${memberIndex}" data-field="name" data-index="${memberIndex}" placeholder="Enter member's full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="member_email_${memberIndex}">Email *</label>
-                        <input type="email" id="member_email_${memberIndex}" data-field="email" data-index="${memberIndex}" placeholder="Enter member's email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="member_roll_${memberIndex}">Roll / College ID *</label>
-                        <input type="text" id="member_roll_${memberIndex}" data-field="roll" data-index="${memberIndex}" placeholder="Enter member's roll number" required>
-                    </div>
-                </div>
-            `;
-            teamMembersContainer.appendChild(memberHtml);
-
-            updateMemberButton();
-        }
-
-        function removeTeamMember(index) {
-            const memberCard = document.querySelector(`.member-${index}`);
-            if (memberCard) {
-                teamMembersContainer.removeChild(memberCard);
-                memberCount--;
-                updateMemberButton();
-                // Re-index remaining members visually
-                document.querySelectorAll('.member-card').forEach((card, i) => {
-                    const newIndex = i + 1;
-                    card.className = `member-card member-${newIndex}`;
-                    card.querySelector('.member-header h4').textContent = `Team Member ${newIndex}`;
-                    card.querySelector('.btn-remove-member').setAttribute('data-index', newIndex);
-                    card.querySelectorAll('[data-index]').forEach(input => {
-                        const field = input.getAttribute('data-field');
-                        input.id = `member_${field}_${newIndex}`;
-                        input.name = `member_${field}_${newIndex}`; 
-                        input.setAttribute('data-index', newIndex);
-                        input.previousElementSibling.setAttribute('for', `member_${field}_${newIndex}`);
-                    });
-                });
-            }
-        }
-
-        addMemberBtn.addEventListener('click', addTeamMember);
-
-        // Delegation for removing members
-        teamMembersContainer.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-remove-member')) {
-                const indexToRemove = parseInt(e.target.getAttribute('data-index'));
-                removeTeamMember(indexToRemove);
-            }
-        });
         
-        // Form submission and validation
-        const form = document.getElementById('regForm');
-        const formStatus = document.getElementById('formStatus');
 
-        function validateForm() {
-            let isValid = true;
-            // Clear previous errors
-            document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
-
-            const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.classList.add('error-input');
-                    isValid = false;
-                }
-            });
-
-            const leadEmail = document.getElementById('lead_email');
-            if (leadEmail && leadEmail.value.trim() && !emailRegex.test(leadEmail.value.trim())) {
-                leadEmail.classList.add('error-input');
-                isValid = false;
-            }
-
-            const leadPhone = document.getElementById('lead_phone');
-            if (leadPhone && leadPhone.value.trim() && !phoneRegex.test(leadPhone.value.trim().replace(/\s/g, ''))) {
-                leadPhone.classList.add('error-input');
-                isValid = false;
-            }
-
-            const memberInputs = teamMembersContainer.querySelectorAll('input[required]');
-            memberInputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add('error-input');
-                    isValid = false;
-                } else if (input.dataset.field === 'email' && !emailRegex.test(input.value.trim())) {
-                    input.classList.add('error-input');
-                    isValid = false;
-                }
-            });
-
-            return isValid;
-        }
-
-        function extractTeamMembersData() {
-            const members = [];
-            const memberCards = teamMembersContainer.querySelectorAll('.member-card');
-            
-            memberCards.forEach((card, index) => {
-                const name = card.querySelector(`[data-field="name"]`).value.trim();
-                const email = card.querySelector(`[data-field="email"]`).value.trim();
-                const roll = card.querySelector(`[data-field="roll"]`).value.trim();
-                
-                if (name || email || roll) {
-                    members.push({
-                        member: index + 1,
-                        name: name,
-                        email: email,
-                        roll: roll
-                    });
-                }
-            });
-
-            return JSON.stringify(members);
-        }
-
-        if (form) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                if (!validateForm()) {
-                    formStatus.textContent = '❌ Please fill in all required fields and correct errors.';
-                    formStatus.className = 'form-status error';
-                    formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
-                }
-
-                teamMembersDetailsInput.value = extractTeamMembersData();
-                
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                
-                submitBtn.textContent = 'Submitting...';
-                submitBtn.disabled = true;
-                formStatus.textContent = '';
-                formStatus.className = 'form-status';
-                
-                try {
-                    const formData = new FormData(form);
-                    
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        formStatus.textContent = '✅ Registration submitted successfully! You will receive a confirmation email shortly.';
-                        formStatus.className = 'form-status success';
-                        form.reset();
-                        teamMembersContainer.innerHTML = '';
-                        memberCount = 0;
-                        updateMemberButton();
-
-                        formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else {
-                        const data = await response.json();
-                        formStatus.textContent = '❌ Registration failed. Please try again or contact support. (' + (data.errors ? 'Validation Error' : 'Unknown Error') + ')';
-                        formStatus.className = 'form-status error';
-                    }
-                } catch (error) {
-                    console.error('Form submission error:', error);
-                    formStatus.textContent = '❌ Network error. Please check your connection and try again.';
-                    formStatus.className = 'form-status error';
-                } finally {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    
-                    setTimeout(() => {
-                        formStatus.textContent = '';
-                        formStatus.className = 'form-status';
-                    }, 10000);
-                }
-            });
-        }
-        updateMemberButton();
+       
     </script>
 </body>
 </html>
