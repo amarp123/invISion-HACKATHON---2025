@@ -1011,6 +1011,209 @@ body.menu-open {
     transform: translateY(0);
 }
 
+
+/* Payment Info Styles */
+/* Registration Form Section */
+.register-section {
+    background: var(--bg-secondary);
+}
+
+/* Registration Card */
+.registration-card {
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.registration-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.reg-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.registration-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.fee-amount {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.fee-amount span {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.reg-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.btn-register-form {
+    display: inline-block;
+    background: var(--gradient-primary);
+    color: #000;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(77, 231, 176, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-register-form::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn-register-form:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-register-form:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(77, 231, 176, 0.5);
+}
+
+.reg-notes {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.reg-notes p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Registration Steps */
+.registration-steps {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.registration-steps h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.step-card {
+    background: var(--bg-card);
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.step-card:hover::before {
+    transform: scaleX(1);
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(77, 231, 176, 0.2);
+    border-color: var(--primary-color);
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary);
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 15px rgba(77, 231, 176, 0.3);
+}
+
+.step-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.step-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
 /* Responsive Design Overrides */
 @media (max-width: 768px) {
     /* Mobile Menu Toggle Logic */
@@ -1112,18 +1315,22 @@ body.menu-open {
         text-align: center;
     }
 
-    .form-grid {
+     .registration-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .fee-amount {
+        font-size: 2.5rem;
+    }
+    
+    .steps-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
-    .registration-form {
-        padding: 2rem;
-    }
-
-    #canvas3d {
-        height: 450px; 
-    }
 }
+
+
 
 @media (max-width: 480px) {
     .invision-logo {
@@ -1164,4 +1371,8 @@ body.menu-open {
     #canvas3d {
         height: 350px; 
     }
+
+
+
 }
+
