@@ -306,40 +306,89 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- Countdown Timer ---
-        const eventDate = new Date('October 31, 2025 08:00:00').getTime();
+      // --- Countdown Timer ---
+// Event Date: October 31, 2025 08:00:00 AM
+const eventDate = new Date('October 31, 2025 08:00:00').getTime();
+// Registration Deadline: October 29, 2025 12:00:00 PM (IST - assuming local timezone based on prompt/current time)
+const deadlineDate = new Date('October 29, 2025 12:00:00').getTime(); 
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distanceToDeadline = deadlineDate - now;
+    const distanceToEvent = eventDate - now;
 
-            const days = document.getElementById('days');
-            const hours = document.getElementById('hours');
-            const minutes = document.getElementById('minutes');
-            const seconds = document.getElementById('seconds');
-            const countdownContainer = document.querySelector('.countdown-container');
+    const countdownContainer = document.querySelector('.countdown-container');
+    const heroDescription = document.querySelector('.hero-description');
+    const days = document.getElementById('days');
+    const hours = document.getElementById('hours');
+    const minutes = document.getElementById('minutes');
+    const seconds = document.getElementById('seconds');
+    const registerButton = document.querySelector('.btn-primary'); // Assuming this is the main register button
 
-            if (!days || distance < 0) {
-                if (countdownContainer) {
-                    countdownContainer.innerHTML = '<p style="font-size: 1.5rem; color: var(--primary-color); font-weight: 700;">Event is Live!</p>';
-                }
-                clearInterval(countdownInterval);
-                return;
-            }
-            
-            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
+    if (!days || !countdownContainer || !heroDescription) {
+        // Stop if essential elements are missing
+        clearInterval(countdownInterval);
+        return;
+    }
 
-            days.textContent = String(d).padStart(2, '0');
-            hours.textContent = String(h).padStart(2, '0');
-            minutes.textContent = String(m).padStart(2, '0');
-            seconds.textContent = String(s).padStart(2, '0');
-        }
+    // 1. Handle Registration Deadline
+    if (distanceToDeadline > 0) {
+        // Registration is still OPEN
+        const d = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distanceToDeadline % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distanceToDeadline % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distanceToDeadline % (1000 * 60)) / 1000);
 
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
+        // Update the hero description text to show deadline info
+        heroDescription.innerHTML = 
+            `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+            Department of Information Science & Engineering<br>
+            <strong>Registration Ends In:</strong>`;
+
+        days.textContent = String(d).padStart(2, '0');
+        hours.textContent = String(h).padStart(2, '0');
+        minutes.textContent = String(m).padStart(2, '0');
+        seconds.textContent = String(s).padStart(2, '0');
+        
+        // Ensure Register button is visible and active
+        if (registerButton) registerButton.style.display = 'inline-block';
+        
+    } else if (distanceToEvent > 0) {
+        // Registration is CLOSED, but Event is not live yet (i.e., between Oct 29, 12 PM and Oct 31, 8 AM)
+        const d = Math.floor(distanceToEvent / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distanceToEvent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distanceToEvent % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distanceToEvent % (1000 * 60)) / 1000);
+
+        // Update to show time to event
+        heroDescription.innerHTML = 
+            `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+            Department of Information Science & Engineering<br>
+            <strong>Event Starts In:</strong> (Registration is Closed)`;
+
+        days.textContent = String(d).padStart(2, '0');
+        hours.textContent = String(h).padStart(2, '0');
+        minutes.textContent = String(m).padStart(2, '0');
+        seconds.textContent = String(s).padStart(2, '0');
+
+        // Hide or disable the main register button
+        if (registerButton) registerButton.style.display = 'none';
+
+    } else {
+        // Event is Live or has ended
+        countdownContainer.innerHTML = '<p style="font-size: 1.5rem; color: var(--primary-color); font-weight: 700;">Event is Live!</p>';
+        heroDescription.innerHTML = 
+            `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+            Department of Information Science & Engineering`;
+        
+        if (registerButton) registerButton.style.display = 'none'; // Hide the register button
+        clearInterval(countdownInterval);
+    }
+}
+
+const countdownInterval = setInterval(updateCountdown, 1000);
+updateCountdown();
+// ... (The rest of your Three.js and UI logic remains unchanged)
 
         // --- Three.js 3D Scene ---
         const canvas = document.getElementById('canvas3d');
