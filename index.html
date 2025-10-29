@@ -306,97 +306,103 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-   function updateCountdown() {
-    const now = new Date().getTime();
-    const distanceToDeadline = deadlineDate - now;
-    const distanceToEvent = eventDate - now;
+  function updateCountdown() {
+  const now = new Date().getTime();
+  const distanceToDeadline = deadlineDate - now;
+  const distanceToEvent = eventDate - now;
 
-    const countdownContainer = document.querySelector('.countdown-container');
-    const heroDescription = document.querySelector('.hero-description');
-    const days = document.getElementById('days');
-    const hours = document.getElementById('hours');
-    const minutes = document.getElementById('minutes');
-    const seconds = document.getElementById('seconds');
+  const countdownContainer = document.querySelector('.countdown-container');
+  const heroDescription = document.querySelector('.hero-description');
 
-    if (!days || !countdownContainer || !heroDescription) {
-        clearInterval(countdownInterval);
-        return;
+  const days = document.getElementById('days');
+  const hours = document.getElementById('hours');
+  const minutes = document.getElementById('minutes');
+  const seconds = document.getElementById('seconds');
+
+  if (!days || !countdownContainer || !heroDescription) {
+    clearInterval(countdownInterval);
+    return;
+  }
+
+  // ✅ Registration OPEN → Count deadline
+  if (distanceToDeadline > 0) {
+    const d = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distanceToDeadline % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distanceToDeadline % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distanceToDeadline % (1000 * 60)) / 1000);
+
+    heroDescription.innerHTML = `
+      A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+      Department of Information Science & Engineering<br>
+      <strong>Registration Ends: Oct 29, 12 PM</strong>
+    `;
+
+    days.textContent = String(d).padStart(2, '0');
+    hours.textContent = String(h).padStart(2, '0');
+    minutes.textContent = String(m).padStart(2, '0');
+    seconds.textContent = String(s).padStart(2, '0');
+
+    document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
+      btn.style.display = 'inline-block';
+    });
+
+  }
+
+  // ✅ Registration CLOSED → Count event start
+  else if (distanceToEvent > 0) {
+    const d = Math.floor(distanceToEvent / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distanceToEvent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distanceToEvent % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distanceToEvent % (1000 * 60)) / 1000);
+
+    heroDescription.innerHTML = `
+      A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+      Department of Information Science & Engineering<br>
+      <strong>Event Starts Soon – Registration Closed</strong>
+    `;
+
+    days.textContent = String(d).padStart(2, '0');
+    hours.textContent = String(h).padStart(2, '0');
+    minutes.textContent = String(m).padStart(2, '0');
+    seconds.textContent = String(s).padStart(2, '0');
+
+    document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
+      btn.style.display = 'none';
+    });
+
+    const registerSection = document.getElementById('register');
+    if (registerSection) {
+      registerSection.innerHTML = `
+        <h2 class="section-title">Registration Closed</h2>
+        <p class="section-description">
+          Thank you for your overwhelming response!<br>
+          See you at the event! 🚀
+        </p>
+      `;
     }
 
-    // ✅ Registration OPEN → Count deadline
-    if (distanceToDeadline > 0) {
-        const d = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24));
-        const h = Math.floor((distanceToDeadline % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((distanceToDeadline % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((distanceToDeadline % (1000 * 60)) / 1000);
+  }
 
-        heroDescription.innerHTML = 
-        `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
-        Department of Information Science & Engineering<br>
-        <strong>Registration Ends: Oct 29, 12 PM</strong>`;
+  // ✅ Event LIVE or finished
+  else {
+    countdownContainer.innerHTML = `
+      <p style="font-size: 1.5rem; color: var(--primary-color); font-weight: 700;">
+        Event is Live!
+      </p>
+    `;
 
-        days.textContent = String(d).padStart(2, '0');
-        hours.textContent = String(h).padStart(2, '0');
-        minutes.textContent = String(m).padStart(2, '0');
-        seconds.textContent = String(s).padStart(2, '0');
+    heroDescription.innerHTML = `
+      A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
+      Department of Information Science & Engineering
+    `;
 
-        // ✅ Ensure registration button visible
-        document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
-            btn.style.display = 'inline-block';
-        });
+    document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
+      btn.style.display = 'none';
+    });
 
-    }
-    // ✅ Registration CLOSED → Count event start
-    else if (distanceToEvent > 0) {
-        const d = Math.floor(distanceToEvent / (1000 * 60 * 60 * 24));
-        const h = Math.floor((distanceToEvent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((distanceToEvent % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((distanceToEvent % (1000 * 60)) / 1000);
-
-        heroDescription.innerHTML = 
-        `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
-        Department of Information Science & Engineering<br>
-        <strong>Event Starts Soon – Registration Closed</strong>`;
-
-        days.textContent = String(d).padStart(2, '0');
-        hours.textContent = String(h).padStart(2, '0');
-        minutes.textContent = String(m).padStart(2, '0');
-        seconds.textContent = String(s).padStart(2, '0');
-
-        // ✅ Hide ALL register options
-        document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
-            btn.style.display = 'none';
-        });
-
-        // ✅ Disable & replace registration section
-        const registerSection = document.getElementById('register');
-        if (registerSection) {
-            registerSection.innerHTML = `
-                <h2 class="section-title">Registration Closed</h2>
-                <p class="section-description">
-                    Thank you for your overwhelming response!<br>
-                    See you at the event! 🚀
-                </p>
-            `;
-        }
-    }
-    // ✅ Event LIVE or finished
-    else {
-        countdownContainer.innerHTML =
-            '<p style="font-size: 1.5rem; color: var(--primary-color); font-weight: 700;">Event is Live!</p>';
-
-        heroDescription.innerHTML =
-        `A 12-Hour Internal Hackathon In <strong>MRIT</strong><br>
-        Department of Information Science & Engineering`;
-
-        document.querySelectorAll('.btn-primary, .btn-register-form').forEach(btn => {
-            btn.style.display = 'none';
-        });
-
-        clearInterval(countdownInterval);
-    }
+    clearInterval(countdownInterval);
+  }
 }
-
 
 const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown();
